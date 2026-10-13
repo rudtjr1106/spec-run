@@ -110,6 +110,7 @@ argument-hint: <원하는 작업>
 
 - **이유:** 사용 기록 분석 도구(probe-your-ai-ability)는 이 형태의 명령만 검증으로 인식한다. `node --test`, `./gradlew :app:testDebugUnitTest`, `./gradlew assembleDebug`, `./scripts/check.sh`는 실제로 검증이어도 기록에 잡히지 않는다.
 - Gradle은 `gradlew` 바로 뒤 첫 단어가 `test`·`build`·`check`여야 한다. 옵션은 뒤에 붙인다: `./gradlew test --stacktrace` (○), `./gradlew -q test` (×), `./gradlew clean test` (×).
+- Gradle은 태스크 하나가 실패하면 남은 태스크를 실행하지 않는다. 기준 상태에 실패가 있으면 검증 명령 뒤에 `--continue`를 붙여(`./gradlew test --continue`) 다른 모듈과 변형의 테스트까지 실행하고, 새 실패가 없는지는 `build/test-results/`의 결과로 확인한다.
 - 앞에는 `cd <dir> &&`, 값에 공백이 없는 환경변수(`JAVA_HOME=/path ./gradlew test`), `npx`·`python -m`·`uv run`을 붙여도 된다. 뒤에 `2>&1 | tail -40`을 붙여도 된다. 프로젝트 지침에 빌드 환경이 정해져 있으면 그대로 붙인다.
 - 기록되는 것은 Edit·Write 도구의 편집, Bash 도구의 명령, Agent 도구의 리뷰다. 셸(`sed -i` 등)로 고친 파일이나 다른 도구로 돌린 명령은 잡히지 않는다.
 - 오래 걸리면 타임아웃을 늘리거나 백그라운드로 실행하고, 종료 알림을 받아 출력을 읽은 뒤에 보고한다.
